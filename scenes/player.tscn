@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3qn3yckdvdii"]
+[gd_scene load_steps=17 format=3 uid="uid://d3qn3yckdvdii"]
 
 [ext_resource type="Texture2D" uid="uid://lxxowgei1ngh" path="res://assets/sprites/lofi_char.png" id="1_qxn3h"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_xibb4"]
+[ext_resource type="PackedScene" uid="uid://djvtgvpvq3ghv" path="res://scenes/wand.tscn" id="3_xlow6"]
+[ext_resource type="AudioStream" uid="uid://c78yt1t66r8sp" path="res://assets/sounds/Wizard_hit.ogg" id="4_nqpue"]
+[ext_resource type="AudioStream" uid="uid://dlvmll4cw5k50" path="res://assets/sounds/wizard_death.mp3" id="5_as5cd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7bdk"]
 atlas = ExtResource("1_qxn3h")
@@ -57,6 +60,73 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khm45"]
 size = Vector2(5.5, 8)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0k4qv"]
+size = Vector2(5, 6)
+
+[sub_resource type="Animation" id="Animation_l156n"]
+resource_name = "wizard_hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WizardHit:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_byvh6"]
+resource_name = "wizard_death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WizardDeath:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_w1oc4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WizardHit:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WizardDeath:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a7qvu"]
+_data = {
+"RESET": SubResource("Animation_w1oc4"),
+"wizard_death": SubResource("Animation_byvh6"),
+"wizard_hit": SubResource("Animation_l156n")
+}
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xibb4")
 
@@ -68,3 +138,28 @@ animation = &"up"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.25, 0)
 shape = SubResource("RectangleShape2D_khm45")
+
+[node name="Wand" parent="." instance=ExtResource("3_xlow6")]
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_0k4qv")
+debug_color = Color(1, 0.000969786, 0.0810549, 0.42)
+
+[node name="WizardHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_nqpue")
+bus = &"SFX"
+
+[node name="WizardDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_as5cd")
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a7qvu")
+}

@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://djvtgvpvq3ghv"]
+
+[ext_resource type="Script" path="res://scripts/wand.gd" id="1_ta5gl"]
+[ext_resource type="Texture2D" uid="uid://lxxowgei1ngh" path="res://assets/sprites/lofi_char.png" id="2_5asu1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bdd3x"]
+radius = 63.0079
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7ssd"]
+atlas = ExtResource("2_5asu1")
+region = Rect2(96, 208, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5kmyi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7ssd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Wand" type="Area2D"]
+script = ExtResource("1_ta5gl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+shape = SubResource("CircleShape2D_bdd3x")
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="Weapon" type="AnimatedSprite2D" parent="Pivot"]
+scale = Vector2(1.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5kmyi")
+
+[node name="ShootingPoint" type="Marker2D" parent="Pivot/Weapon"]
+position = Vector2(4, 0)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

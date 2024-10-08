@@ -12,4 +12,3 @@
 * Added collision to objects
 * Added camera to player
 * TODO: Add firing mechanics
-
