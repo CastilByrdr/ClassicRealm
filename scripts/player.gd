@@ -22,6 +22,6 @@ func _physics_process(delta: float) -> void:
 	if overlapping_mobs.size()>0:
 		animation_player.play("wizard_hit")
 		health-=DAMAGE_RATE*overlapping_mobs.size()*delta
-	if health<=0:
-		animation_player.play("wizard_death")
-		health_depleted.emit()
+		if health<=0:
+			animation_player.play("wizard_death")
+			health_depleted.emit()

@@ -12,3 +12,11 @@
 * Added collision to objects
 * Added camera to player
 * TODO: Add firing mechanics
+
+### 2024-10-01 - 2.5 hr: Added enemy
+* Used https://www.youtube.com/watch?v=GwCiGixlqiU to conitue work
+* Added enemy+player focus
+
+### 2024-10-08 - 4 hr: Added firing mechanics/damage
+* Player can now attack
+* Player/enemy take damage/die

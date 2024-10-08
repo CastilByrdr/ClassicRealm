@@ -751,3 +751,9 @@ position = Vector2(-66, 11)
 stream = ExtResource("3_sm5ay")
 autoplay = true
 bus = &"Music"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
