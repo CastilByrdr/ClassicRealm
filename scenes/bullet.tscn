@@ -24,8 +24,8 @@ size = Vector2(4.35352, 3)
 [node name="Bullet" type="Area2D"]
 top_level = true
 position = Vector2(14, 10)
-collision_layer = 32768
-collision_mask = 2
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("1_5qk3g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

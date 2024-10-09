@@ -3,7 +3,7 @@ extends CharacterBody2D
 var health=500
 var player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-
+@onready var child_node = $Aim
 func _ready():
 	player = get_node("/root/Game/Player")
 
@@ -18,4 +18,5 @@ func take_damage():
 	animation_player.play("oryx_hit")
 	if health<=0:
 		animation_player.play("oryx_death")
+		child_node.queue_free()
 		

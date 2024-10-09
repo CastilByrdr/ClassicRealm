@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://7dbjolmvyu06"]
+
+[ext_resource type="Texture2D" uid="uid://lxxowgei1ngh" path="res://assets/sprites/lofi_char.png" id="1_3xylp"]
+[ext_resource type="Script" path="res://scripts/aim.gd" id="1_jptex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1e0l2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vm6u"]
+atlas = ExtResource("1_3xylp")
+region = Rect2(96, 200, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v4lhi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vm6u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Aim" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_jptex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1e0l2")
+
+[node name="Point" type="Marker2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Point"]
+position = Vector2(1, 0)
+scale = Vector2(3.75, 1)
+sprite_frames = SubResource("SpriteFrames_v4lhi")
+
+[node name="ShootingPoint" type="Marker2D" parent="Point/AnimatedSprite2D"]
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

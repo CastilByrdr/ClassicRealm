@@ -3,8 +3,8 @@ extends Area2D
 var travel_distance = 0
 
 func _physics_process(delta: float) -> void:
-	const SPEED=150
-	const RANGE=125
+	const SPEED=100
+	const RANGE=200
 	var direction =  Vector2.RIGHT.rotated(rotation)
 	position += direction * SPEED * delta
 	travel_distance += SPEED * delta
@@ -13,6 +13,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.has_method("take_damage"):
-		body.take_damage()
+	if body.has_method("slow"):
+		body.slow()
 	queue_free()

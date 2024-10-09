@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://n5c6fcpunrdk"]
+
+[ext_resource type="Script" path="res://scripts/slow.gd" id="1_2r2ds"]
+[ext_resource type="Texture2D" uid="uid://ck8pabu72klhf" path="res://assets/sprites/lofi_obj.png" id="2_vegem"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q33aq"]
+atlas = ExtResource("2_vegem")
+region = Rect2(24, 56, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xb0kq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q33aq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_26vsq"]
+size = Vector2(4, 4)
+
+[node name="Slow" type="Area2D"]
+top_level = true
+collision_layer = 32768
+script = ExtResource("1_2r2ds")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xb0kq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_26vsq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

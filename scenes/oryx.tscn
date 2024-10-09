@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cqasuo4q0yqu3"]
+[gd_scene load_steps=13 format=3 uid="uid://cqasuo4q0yqu3"]
 
 [ext_resource type="Script" path="res://scripts/oryx.gd" id="1_pq3le"]
 [ext_resource type="Texture2D" uid="uid://lxxowgei1ngh" path="res://assets/sprites/lofi_char.png" id="1_w12fa"]
+[ext_resource type="PackedScene" uid="uid://7dbjolmvyu06" path="res://scenes/aim.tscn" id="3_lnhm1"]
 [ext_resource type="AudioStream" uid="uid://bkweybgjml0xp" path="res://assets/sounds/oryx_death.mp3" id="3_t3850"]
 [ext_resource type="AudioStream" uid="uid://dho8t35um6nkn" path="res://assets/sounds/oryx_hit.ogg" id="4_nlp21"]
 
@@ -145,6 +146,8 @@ sprite_frames = SubResource("SpriteFrames_45bij")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_12giv")
+
+[node name="Aim" parent="." instance=ExtResource("3_lnhm1")]
 
 [node name="CannotBe" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_t3850")
