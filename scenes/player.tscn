@@ -120,6 +120,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_l156n"]
 resource_name = "wizard_hit"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://btgluyqih2gt2"]
+
+[ext_resource type="Texture2D" uid="uid://ck8pabu72klhf" path="res://assets/sprites/lofi_obj.png" id="1_33mfo"]
+[ext_resource type="Script" path="res://scripts/slash.gd" id="1_a44up"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3ue2"]
+atlas = ExtResource("1_33mfo")
+region = Rect2(80, 72, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42hif"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3ue2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jks32"]
+size = Vector2(11, 2)
+
+[node name="Slash" type="Area2D"]
+top_level = true
+collision_layer = 32768
+script = ExtResource("1_a44up")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 0.785398
+sprite_frames = SubResource("SpriteFrames_42hif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_jks32")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

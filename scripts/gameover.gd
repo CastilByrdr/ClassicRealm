@@ -13,16 +13,13 @@ func _ready():
 	fade_rect.modulate.a = 0  # Start fully transparent
 	fade_rect.show()  # Ensure the ColorRect is visible
 	$Button.text = "Restart"
-	$Label.text = "Game Over"
+	$Label.text = "Wizard
+					was slain
+					by Oryx the Mad God"
 	# Correctly use Callable for connecting the button's signal
 	$Button.connect("pressed", Callable(self, "_on_restart_button_pressed"))
 	sound_animation_player.play("gameover")
-	fade_in()
-	
-func fade_in():
-	fade_player.play("fade_in")	
-	
-# Function to restart the game
-func _on_restart_button_pressed():
-	# Assuming "MainScene.tscn" is your game scene
+
+
+func _on_restart_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/game.tscn")

@@ -77,6 +77,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_582k0"]
 resource_name = "oryx_death"
+length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -116,6 +117,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ona3n"]
 resource_name = "oryx_hit"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -161,3 +163,5 @@ bus = &"SFX"
 libraries = {
 "": SubResource("AnimationLibrary_o51fh")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

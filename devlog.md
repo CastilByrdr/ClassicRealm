@@ -1,4 +1,10 @@
-### 2024-10-22 - 4 hr: Added status indication, added hp/gameover
+### 2024-10-22 - 2 hr: Added enemy attacks, added win screen
+* Enemy now has damaging attack
+* Win screen now appears on defeating enemy
+* Fixed game over screen not allowing restart
+* Added some new SFX
+
+### 2024-10-21 - 4 hr: Added status indication, added hp/gameover
 * An icon will now appear for a status effect
 * Player and enemy both have visible hp
 * Player death now results in a game over with option to restart

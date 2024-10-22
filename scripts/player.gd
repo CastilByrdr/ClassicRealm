@@ -28,14 +28,12 @@ func _physics_process(delta: float) -> void:
 	if is_slow==true:
 		velocity=velocity/2
 	move_and_slide()
-	
-	const DAMAGE_RATE=10
-	var overlapping_mobs=%HurtBox.get_overlapping_bodies()
-	if overlapping_mobs.size()>0:
-		sound_animation_player.play("wizard_hit")
-		health_changed.emit()
-		health-=DAMAGE_RATE*overlapping_mobs.size()*delta
-		if health<=0:
+
+func take_damage():
+	health-=20
+	health_changed.emit()
+	sound_animation_player.play("wizard_hit")
+	if health<=0:
 			sound_animation_player.play("wizard_death")
 			health_depleted.emit()
 			get_tree().change_scene_to_file("res://scenes/gameOver.tscn")
