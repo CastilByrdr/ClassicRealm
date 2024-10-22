@@ -1,3 +1,10 @@
+### 2024-10-22 - 4 hr: Added status indication, added hp/gameover
+* An icon will now appear for a status effect
+* Player and enemy both have visible hp
+* Player death now results in a game over with option to restart
+* Fixed shot collision issues
+* TODO: Fix movement, add more attacks to enemy
+
 ### 2024-10-15 - 3 hr: Improved player attacking/added slow mechanic
 * Shots now have proper collision with objects
 * Enemy can attack and inflicts the slow effect (slows player movement)

@@ -31,6 +31,7 @@ shape = SubResource("CircleShape2D_bdd3x")
 [node name="Pivot" type="Marker2D" parent="."]
 
 [node name="Weapon" type="AnimatedSprite2D" parent="Pivot"]
+position = Vector2(2, 0)
 scale = Vector2(1.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5kmyi")
 
@@ -41,5 +42,5 @@ position = Vector2(4, 0)
 wait_time = 0.2
 autostart = true
 
-[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

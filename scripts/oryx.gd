@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+class_name Oryx
+
+signal health_changed
+var maxHealth=500
 var health=500
 var player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -15,8 +19,10 @@ func _physics_process(delta: float) -> void:
 
 func take_damage():
 	health-=10
+	health_changed.emit()
 	animation_player.play("oryx_hit")
 	if health<=0:
 		animation_player.play("oryx_death")
+		$TextureProgressBar.queue_free()
 		child_node.queue_free()
 		

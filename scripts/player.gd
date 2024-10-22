@@ -1,11 +1,19 @@
 extends CharacterBody2D
 
+class_name Player
+
+signal health_changed
 signal health_depleted
+var maxHealth=100
 var health=100
 var is_slow: bool = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sound_animation_player: AnimationPlayer = $SoundAnimationPlayer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var slow_timer: Timer = $SlowTimer
+func _ready():
+	$SlowNotif.hide()
+	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left","right","up","down") 
 	if Input.is_action_pressed("down"):
@@ -24,17 +32,20 @@ func _physics_process(delta: float) -> void:
 	const DAMAGE_RATE=10
 	var overlapping_mobs=%HurtBox.get_overlapping_bodies()
 	if overlapping_mobs.size()>0:
-		animation_player.play("wizard_hit")
+		sound_animation_player.play("wizard_hit")
+		health_changed.emit()
 		health-=DAMAGE_RATE*overlapping_mobs.size()*delta
 		if health<=0:
-			animation_player.play("wizard_death")
+			sound_animation_player.play("wizard_death")
 			health_depleted.emit()
-			get_tree().reload_current_scene()
+			get_tree().change_scene_to_file("res://scenes/gameOver.tscn")
 
 func slow():
-	animation_player.play("wizard_hit")
+	sound_animation_player.play("wizard_hit")
+	animation_player.play("slowed")
 	is_slow=true
 	slow_timer.start()
 	
 func _on_slow_timer_timeout() -> void:
 	is_slow=false
+	animation_player.play("unslowed")

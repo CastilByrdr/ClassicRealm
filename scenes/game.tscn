@@ -1,9 +1,14 @@
-[gd_scene load_steps=11 format=4 uid="uid://bcjgf0kggojfr"]
+[gd_scene load_steps=16 format=4 uid="uid://bcjgf0kggojfr"]
 
 [ext_resource type="PackedScene" uid="uid://d3qn3yckdvdii" path="res://scenes/player.tscn" id="1_hynna"]
 [ext_resource type="Texture2D" uid="uid://m6plfj2sce5w" path="res://assets/sprites/lofi_environment.png" id="1_nyu6d"]
 [ext_resource type="PackedScene" uid="uid://cqasuo4q0yqu3" path="res://scenes/oryx.tscn" id="3_c57vp"]
 [ext_resource type="AudioStream" uid="uid://daxe68lgkksso" path="res://assets/music/sorc.mp3" id="3_sm5ay"]
+[ext_resource type="Texture2D" uid="uid://bwnyv214dqbvf" path="res://assets/sprites/hpEmpty.png" id="5_ju1sy"]
+[ext_resource type="Script" path="res://scripts/health_bar.gd" id="5_y87pv"]
+[ext_resource type="Texture2D" uid="uid://du1s7xxlkqf7q" path="res://assets/sprites/hp.png" id="6_j7uog"]
+[ext_resource type="Script" path="res://scripts/texture_progress_bar.gd" id="6_j14fp"]
+[ext_resource type="FontFile" uid="uid://ck4vkw7mocjhw" path="res://assets/sprites/PixelOperator8.ttf" id="8_hh6xg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7dp48"]
 texture = ExtResource("1_nyu6d")
@@ -747,6 +752,17 @@ tile_set = SubResource("TileSet_bvwlw")
 [node name="Oryx" parent="." instance=ExtResource("3_c57vp")]
 position = Vector2(-66, 11)
 
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Oryx" node_paths=PackedStringArray("oryx")]
+offset_left = -10.0
+offset_top = 8.0
+offset_right = 11.0
+offset_bottom = 13.0
+value = 100.0
+texture_under = ExtResource("5_ju1sy")
+texture_progress = ExtResource("6_j7uog")
+script = ExtResource("6_j14fp")
+oryx = NodePath("..")
+
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_sm5ay")
 autoplay = true
@@ -754,6 +770,13 @@ bus = &"Music"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+offset_left = 902.0
+offset_top = 49.0
+offset_right = 1099.0
+offset_bottom = 95.0
+theme_override_fonts/font = ExtResource("8_hh6xg")
+value = 100.0
+allow_lesser = true
+script = ExtResource("5_y87pv")
+player = NodePath("../../Player")
