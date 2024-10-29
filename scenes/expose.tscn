@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://brl43mhkupkfu"]
+
+[ext_resource type="Script" path="res://scripts/expose.gd" id="1_x2aaf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6wudr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1kok"]
+size = Vector2(8, 8)
+
+[node name="Expose" type="Area2D"]
+script = ExtResource("1_x2aaf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6wudr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k1kok")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

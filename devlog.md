@@ -1,3 +1,7 @@
+### 2024-10-29 - 3 hr: Updated arena, began work on phase 2
+* Arena is now more thematic
+* Player attack has been nerfed to not reach the entire arena or attack as fast
+
 ### 2024-10-22 - 2 hr: Added enemy attacks, added win screen
 * Enemy now has damaging attack
 * Win screen now appears on defeating enemy
