@@ -1,3 +1,7 @@
+### 2024-11-05 - 2 hr: Updated phase 2
+* Boss now has new status effect: paralyze
+* Boss reacts differently on reaching half hp
+
 ### 2024-10-29 - 3 hr: Updated arena, began work on phase 2
 * Arena is now more thematic
 * Player attack has been nerfed to not reach the entire arena or attack as fast

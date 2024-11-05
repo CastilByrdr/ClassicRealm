@@ -7,7 +7,7 @@ var maxHealth=500
 var health=500
 var player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var child_node = $Aim
+@onready var aim = $Aim
 func _ready():
 	player = get_node("/root/Game/Player")
 
@@ -16,9 +16,8 @@ func _physics_process(delta: float) -> void:
 	if health>maxHealth/2:
 		velocity = direction * 25
 	else:
-		velocity = direction * 30
+		velocity = direction * 0
 	move_and_slide()
-	
 
 func take_damage():
 	health-=10
@@ -27,7 +26,7 @@ func take_damage():
 	if health<=0:
 		animation_player.play("oryx_death")
 		$TextureProgressBar.queue_free()
-		child_node.queue_free()
+		aim.queue_free()
 		animation_player.connect("animation_finished", Callable(self, "_on_animation_finished"))
 		
 

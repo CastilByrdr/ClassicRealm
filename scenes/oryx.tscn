@@ -164,4 +164,7 @@ libraries = {
 "": SubResource("AnimationLibrary_o51fh")
 }
 
+[node name="MoveTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

@@ -145,5 +145,5 @@ libraries = {
 "": SubResource("AnimationLibrary_c71yb")
 }
 
-[connection signal="pressed" from="Button" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_restart_button_pressed"]
