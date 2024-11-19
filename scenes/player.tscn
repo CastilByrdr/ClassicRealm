@@ -319,7 +319,7 @@ scale = Vector2(0.45, 0.45)
 sprite_frames = SubResource("SpriteFrames_aqaaa")
 
 [node name="ParalyzeTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 
 [node name="ParalyzeNotif" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -7)

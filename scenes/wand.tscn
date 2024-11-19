@@ -88,5 +88,5 @@ libraries = {
 "": SubResource("AnimationLibrary_w2wj0")
 }
 
-[connection signal="timeout" from="ShootTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_timer_timeout"]
