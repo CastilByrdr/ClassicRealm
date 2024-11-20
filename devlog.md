@@ -1,3 +1,6 @@
+### 2024-11-19 - 3 hr: Completed phase 2
+* Phase 2 now has a complete pattern
+
 ### 2024-11-05 - 2 hr: Updated phase 2
 * Boss now has new status effect: paralyze
 * Boss reacts differently on reaching half hp
