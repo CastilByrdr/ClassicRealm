@@ -1,12 +1,22 @@
 extends Area2D
 
 var can_shoot: bool = true 
+var player
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+func _ready():
+	player = get_node("/root/Game/Player")
+	
 func _physics_process(delta: float) -> void:
 	var mouse_position = get_global_mouse_position()
 	var direction = mouse_position - global_position
-	rotation = direction.angle()
+	if player.is_drunk:
+		# Randomize rotation when the player is drunk
+		rotation = randf_range(0, 2 * PI)  # Random angle between 0 and 2 * PI
+	else:
+		# Otherwise, rotate towards the mouse position
+		rotation = direction.angle()
 	if Input.is_action_pressed("shoot"):
 		shoot() 
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d3qn3yckdvdii"]
+[gd_scene load_steps=34 format=3 uid="uid://d3qn3yckdvdii"]
 
 [ext_resource type="Texture2D" uid="uid://lxxowgei1ngh" path="res://assets/sprites/lofi_char.png" id="1_qxn3h"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_xibb4"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dlvmll4cw5k50" path="res://assets/sounds/wizard_death.mp3" id="5_as5cd"]
 [ext_resource type="Texture2D" uid="uid://cnrxh1wge2mg1" path="res://assets/sprites/slow.png" id="6_xarek"]
 [ext_resource type="Texture2D" uid="uid://p54tyaho5yu2" path="res://assets/sprites/paralyze.png" id="7_wk17n"]
+[ext_resource type="Texture2D" uid="uid://bi6r2g2sk553" path="res://assets/sprites/Drunk.png" id="8_g4uat"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k7bdk"]
 atlas = ExtResource("1_qxn3h")
@@ -168,6 +169,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DrunkNotif:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_tvkt2"]
 resource_name = "exposed"
@@ -229,11 +242,43 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_txl3x"]
+resource_name = "drunk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DrunkNotif:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_biafq"]
+resource_name = "sober"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DrunkNotif:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0sfo1"]
 _data = {
 "RESET": SubResource("Animation_1akgq"),
+"drunk": SubResource("Animation_txl3x"),
 "exposed": SubResource("Animation_tvkt2"),
 "slowed": SubResource("Animation_twxcu"),
+"sober": SubResource("Animation_biafq"),
 "unexposed": SubResource("Animation_o2qwb"),
 "unslowed": SubResource("Animation_gxf7l")
 }
@@ -262,6 +307,21 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ryiro")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5papa"]
+atlas = ExtResource("8_g4uat")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ltk16"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5papa")
 }],
 "loop": true,
 "name": &"default",
@@ -314,17 +374,26 @@ libraries = {
 }
 
 [node name="SlowNotif" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.25, -7)
+position = Vector2(0, -7)
 scale = Vector2(0.45, 0.45)
 sprite_frames = SubResource("SpriteFrames_aqaaa")
 
 [node name="ParalyzeTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.5
 
 [node name="ParalyzeNotif" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -7)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_3srih")
 
+[node name="DrunkTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="DrunkNotif" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ltk16")
+
 [connection signal="timeout" from="SlowTimer" to="." method="_on_slow_timer_timeout"]
 [connection signal="timeout" from="ParalyzeTimer" to="." method="_on_expose_timer_timeout"]
+[connection signal="timeout" from="DrunkTimer" to="." method="_on_drunk_timer_timeout"]

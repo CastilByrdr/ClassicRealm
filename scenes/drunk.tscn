@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5qvregj8ynja"]
+
+[ext_resource type="Texture2D" uid="uid://4ssk03stmjd0" path="res://assets/sprites/lofi_dungeon_features.png" id="1_c3at2"]
+[ext_resource type="Script" path="res://scripts/drunk.gd" id="1_qukdq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpksw"]
+atlas = ExtResource("1_c3at2")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cgbkf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpksw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0c01j"]
+size = Vector2(6, 8)
+
+[node name="Drunk" type="Area2D"]
+top_level = true
+script = ExtResource("1_qukdq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cgbkf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0c01j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

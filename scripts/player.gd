@@ -8,14 +8,17 @@ var maxHealth=100
 var health=100
 var is_slow: bool = false
 var is_paralyzed: bool = false
+var is_drunk: bool = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sound_animation_player: AnimationPlayer = $SoundAnimationPlayer
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var slow_timer: Timer = $SlowTimer
 @onready var paralyze_timer: Timer = $ParalyzeTimer
+@onready var drunk_timer: Timer = $DrunkTimer
 func _ready():
 	$SlowNotif.hide()
 	$ParalyzeNotif.hide()
+	$DrunkNotif.hide()
 	
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("left","right","up","down") 
@@ -31,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	if is_slow==true:
 		velocity=velocity/2
 	if is_paralyzed==true:
-		velocity=velocity*0
+		velocity=velocity*0	
 	move_and_slide()
 
 func take_damage():
@@ -62,3 +65,13 @@ func paralyze():
 func _on_expose_timer_timeout() -> void:
 	is_paralyzed=false
 	animation_player.play("unexposed")
+	
+func drunk():
+	sound_animation_player.play("wizard_hit")
+	animation_player.play("drunk")
+	is_drunk=true
+	drunk_timer.start()
+
+func _on_drunk_timer_timeout() -> void:
+	is_drunk=false
+	animation_player.play("sober")

@@ -1,3 +1,8 @@
+### 2024-11-25 - 1.5 hr: Addded "phase 3"
+* Boss now has an extra attack on death
+* Boss now has new status effect: drunk
+* Fixed boss continuing attack loop after death (will still finish currently executing attack)
+
 ### 2024-11-19 - 3 hr: Completed phase 2
 * Phase 2 now has a complete pattern
 

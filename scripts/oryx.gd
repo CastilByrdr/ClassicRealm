@@ -4,8 +4,8 @@ class_name Oryx
 
 signal health_changed
 signal health_depleted
-var maxHealth=700
-var health=700
+var maxHealth=800
+var health=800
 var player
 var has_executed: bool = false
 var is_first_iteration = true
@@ -36,24 +36,48 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	
 func start_process() -> void:
-	if is_first_iteration:
-		await delay(1.0)  # Delay only before the first jump
-		is_first_iteration = false  # Ensure this delay happens only once
-	while health>0:
-		await jump_to_player()
-		await create_paralyze()
-		await create_slashes()
-		await delay(delay_between_phases)
-		
-func jump_to_player() -> void:
+	while health > 0:
+		if is_first_iteration:
+			print("Initial delay of 0.2 seconds")
+			await delay(1.0)
+			is_first_iteration = false
+
+		print("Executing jump_to_player")
+		if not await jump_to_player():
+			print("Health depleted during jump_to_player")
+			return
+
+		print("Executing create_paralyze")
+		if not await create_paralyze():
+			print("Health depleted during create_paralyze")
+			return
+
+		print("Executing create_slashes")
+		if not await create_slashes():
+			print("Health depleted during create_slashes")
+			return
+
+		print("Waiting before next loop")
+		if not await delay(delay_between_phases):
+			print("Health depleted during delay")
+			return
+
+		print("Exiting start_process due to health reaching 0")
+
+func jump_to_player() -> bool:
+	if health <= 0:
+		return false
 	if player:
 		is_jumping = true
 		var direction = (player.global_position - global_position).normalized()
 		global_position += direction * jump_speed * 0.016
 		is_jumping = false
 	await delay(0.01)  # Brief pause after jump
+	return true
 
-func create_paralyze() -> void:
+func create_paralyze() -> bool:
+	if health <= 0:
+		return false
 	var shooting_point = aim.get_node("Point/AnimatedSprite2D/ShootingPoint")
 	const PARALYZE = preload("res://scenes/paralyze.tscn")
 	if shooting_point:
@@ -67,8 +91,11 @@ func create_paralyze() -> void:
 			aim.add_child(paralyze_instance)
 		
 	await delay(3.0)  # Wait for 3 seconds after creating paralyze instances
-
-func create_slashes() -> void:
+	return true
+	
+func create_slashes() -> bool:
+	if health <= 0:
+		return false
 	var shooting_point = aim.get_node("Point/AnimatedSprite2D/ShootingPoint")
 	const SLASH = preload("res://scenes/slash.tscn")
 	if shooting_point:
@@ -85,15 +112,25 @@ func create_slashes() -> void:
 				aim.add_child(slash_instance)
 				
 			await delay(slash_interval)  # Wait between slash groups
+	return true
 
-func delay(seconds: float) -> void:
+func delay(seconds: float) -> bool:
+	if health <= 0:
+			return false
 	await get_tree().create_timer(seconds).timeout
+	return true
 	
 func take_damage():
 	health-=10
 	health_changed.emit()
 	animation_player.play("oryx_hit")
 	if health<=0:
+		var shooting_point = aim.get_node("Point/AnimatedSprite2D/ShootingPoint")
+		const DRUNK = preload("res://scenes/drunk.tscn")
+		var drunk_instance = DRUNK.instantiate()
+		drunk_instance.global_position = shooting_point.global_position
+		drunk_instance.rotation = aim.rotation
+		aim.add_child(drunk_instance)
 		health_depleted.emit()
 		animation_player.play("oryx_death")
 		$TextureProgressBar.queue_free()
