@@ -751,16 +751,17 @@ tile_map_data = PackedByteArray("AADz/wgAAAAAAAAAAADz/wcAAAAAAAAAAADz/wYAAAAAAAA
 tile_set = SubResource("TileSet_y1ywy")
 
 [node name="Player" parent="." instance=ExtResource("1_hynna")]
+position = Vector2(4, 58)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(5, 5)
 
 [node name="Foreground2" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD3/wUAAAAHAA4AAAAIAPv/AAAFAA4AAAAGAAIAAAAEAA4AAAAAAAgAAAAEAA0AAAD4//3/AAAGAA4AAAA=")
+tile_map_data = PackedByteArray("AAD3/wUAAAAHAA4AAAAIAPv/AAAFAA4AAAAGAAIAAAAEAA4AAAAAAAgAAAAEAA0AAAD4//3/AAAGAA4AAAAAAAUAAAAFAA4AAAA=")
 tile_set = SubResource("TileSet_bvwlw")
 
 [node name="Oryx" parent="." instance=ExtResource("3_c57vp")]
-position = Vector2(-66, 11)
+position = Vector2(2, -44)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Oryx" node_paths=PackedStringArray("oryx")]
 offset_left = -10.0
