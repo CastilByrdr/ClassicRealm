@@ -8,7 +8,7 @@ var player
 func _ready():
 	player = get_node("/root/Game/Player")
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction = Vector2.ZERO
 
 	var mouse_position = get_global_mouse_position()

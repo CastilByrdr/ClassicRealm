@@ -24,7 +24,7 @@ var is_jumping: bool = false
 func _ready():
 	player = get_node("/root/Game/Player")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if !has_executed:
 		var direction = global_position.direction_to(player.global_position)
 		if health>maxHealth/2:
