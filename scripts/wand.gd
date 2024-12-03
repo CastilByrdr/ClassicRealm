@@ -13,11 +13,9 @@ func _physics_process(_delta: float) -> void:
 
 	var mouse_position = get_global_mouse_position()
 	direction = mouse_position - global_position
-	if Input.is_action_just_pressed("aim_with_controller"):
-		# Get the right stick input
-		var right_stick_x = Input.get_action_strength("right_stick_right") - Input.get_action_strength("right_stick_left")
-		var right_stick_y = Input.get_action_strength("right_stick_down") - Input.get_action_strength("right_stick_up")
-		direction = Vector2(right_stick_x, right_stick_y)
+	var right_stick_x = Input.get_action_strength("right_stick_right") - Input.get_action_strength("right_stick_left")
+	var right_stick_y = Input.get_action_strength("right_stick_down") - Input.get_action_strength("right_stick_up")
+	direction = Vector2(right_stick_x, right_stick_y)
 		
 	# Check if the player is aiming
 	if direction.length() > 0:
