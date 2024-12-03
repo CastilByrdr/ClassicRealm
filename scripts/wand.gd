@@ -9,14 +9,24 @@ func _ready():
 	player = get_node("/root/Game/Player")
 	
 func _physics_process(delta: float) -> void:
+	var direction = Vector2.ZERO
+
 	var mouse_position = get_global_mouse_position()
-	var direction = mouse_position - global_position
-	if player.is_drunk:
-		# Randomize rotation when the player is drunk
-		rotation = randf_range(0, 2 * PI)  # Random angle between 0 and 2 * PI
-	else:
-		# Otherwise, rotate towards the mouse position
-		rotation = direction.angle()
+	direction = mouse_position - global_position
+	if Input.is_action_just_pressed("aim_with_controller"):
+		# Get the right stick input
+		var right_stick_x = Input.get_action_strength("right_stick_right") - Input.get_action_strength("right_stick_left")
+		var right_stick_y = Input.get_action_strength("right_stick_down") - Input.get_action_strength("right_stick_up")
+		direction = Vector2(right_stick_x, right_stick_y)
+		
+	# Check if the player is aiming
+	if direction.length() > 0:
+		if player.is_drunk:
+			# Randomize rotation when the player is drunk
+			rotation = randf_range(0, 2 * PI)  # Random angle between 0 and 2 * PI
+		else:
+			# Otherwise, rotate towards the aiming direction
+			rotation = direction.angle()
 	if Input.is_action_pressed("shoot"):
 		shoot() 
 	
